@@ -14,7 +14,8 @@ class Search extends Component {
     constructor(props){
         super(props);
         this.state = {
-            books: []
+            books: [],
+            isLoading: false
         };
         this.setBooks = this.setBooks.bind(this);
     }
@@ -30,6 +31,7 @@ class Search extends Component {
     };
 
     updateQuery = (query) => {
+        this.startLoader();
         query = query.trim();
         if(query.length > 0){
             search(query)
@@ -39,10 +41,28 @@ class Search extends Component {
                         return false;
                     }
                     this.setBooks(books);
+                    this.stopLoader();
                 }).catch(() => this.clearBooks());
         }else{
             this.clearBooks();
         }
+    };
+
+    startLoader = () => {
+        this.setState({ isLoading: true});
+    };
+
+    stopLoader = () => {
+        this.setState({ isLoading: false});
+    };
+
+    static loader(){
+        return(
+            <div>
+                <div className="backdrop" />
+                <div className="loader" />
+            </div>
+        )
     };
 
     static headerBar(handleQuery) {
