@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom'
 import Books from './Books'
-import { getAll, get } from "./BooksAPI";
+import { getAll, get, update } from "./BooksAPI";
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -14,8 +14,18 @@ class BooksApp extends React.Component {
     }
 
     componentDidMount(){
-        getAll().then((books) => this.setState({ books }));
+        this.setBooks();
     }
+
+    setBooks = () => {
+        getAll().then((books) => this.setState({ books }));
+    };
+
+    updateBooks = (book) => {
+        BooksAPI.update(book, book.shelf).then((res) => {
+            this.setBooks();
+        });
+    };
 
     setShelf = (id, shelf) => {
         const books = this.state.books.filter(book => book.id !== id);
