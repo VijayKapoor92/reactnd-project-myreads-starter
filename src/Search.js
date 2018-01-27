@@ -32,7 +32,7 @@ class Search extends Component {
     updateQuery = (query) => {
         query = query.trim();
         if(query.length > 0){
-            search(query, 20)
+            search(query)
                 .then(books => {
                     if(!books || books.error){
                         this.clearBooks();
@@ -83,13 +83,13 @@ class Search extends Component {
 
     render(){
 
+        const { books } = this.state;
+        const { getShelf, onChangeShelf } = this.props;
+
         return(
             <div className="search-books">
                 {Search.headerBar(this.updateQuery)}
-                <div className="search-books-results">
-                    <ol className="books-grid">
-                    </ol>
-                </div>
+                {Search.searchBooks(books, getShelf, onChangeShelf)}
             </div>
         )
     }
