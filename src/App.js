@@ -28,6 +28,11 @@ class BooksApp extends React.Component {
         });
     };
 
+    getShelf = (id) => {
+        const books = this.state.books.filter(book => book.id === id);
+        return books.length > 0 ? books[0].shelf : "none";
+    };
+
     setShelf = (id, shelf) => {
         const books = this.state.books.filter(book => book.id !== id);
         get(id).then((book) => {
