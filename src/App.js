@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom'
+import Books from './Books'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
 
@@ -12,6 +13,30 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false
+  };
+
+  shelf = (title, books) => {
+      return (
+          <div className="bookshelf">
+              <h2 className="bookshelf-title">{title}</h2>
+              <div className="bookshelf-books">
+                  <ol className="books-grid">
+                      {books.map((book) => (
+                          <li key={book.id}>
+                              <Books
+                                  id={book.id}
+                                  cover={book.imageLinks}
+                                  shelf={book.shelf}
+                                  title={book.title}
+                                  authors={book.authors}
+                                  onChangeShelf={this.setShelf}
+                              />
+                          </li>
+                      ))}
+                  </ol>
+              </div>
+          </div>
+      )
   };
 
   render() {
