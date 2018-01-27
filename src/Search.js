@@ -1,7 +1,31 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from "prop-types";
 
 class Search extends Component {
+
+    static propTypes = {
+        getShelf : PropTypes.func.isRequired,
+        onChangeShelf : PropTypes.func.isRequired
+    };
+
+    constructor(props){
+        super(props);
+        this.state = {
+            books: []
+        };
+        this.setBooks = this.setBooks.bind(this);
+    }
+
+    setBooks(books){
+        this.setState({ books });
+    };
+
+    clearBooks = () => {
+        this.setState({
+            books: []
+        });
+    };
 
     render(){
 
