@@ -59,6 +59,27 @@ class Search extends Component {
         );
     };
 
+    static searchBooks(books, getShelf, onChangeShelf) {
+        return (
+            <div className="search-books-results">
+                <ol className="books-grid">
+                    {books.map(book => (
+                        <li key={book.id}>
+                            <Books
+                                id={book.id}
+                                cover={book.imageLinks}
+                                shelf={book.shelf}
+                                title={book.title}
+                                authors={book.authors}
+                                onChangeShelf={onChangeShelf}
+                            />
+                        </li>
+                    ))}
+                </ol>
+            </div>
+        );
+    };
+
     render(){
 
         return(
