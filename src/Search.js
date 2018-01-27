@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
+import { search } from './BooksAPI';
 
 class Search extends Component {
 
@@ -27,19 +28,42 @@ class Search extends Component {
         });
     };
 
+    updateQuery = (query) => {
+        query = query.trim();
+        if(query.length > 0){
+            search(query, 20)
+                .then(books => {
+                    if(!books || books.error){
+                        this.clearBooks();
+                        return false;
+                    }
+                    this.setBooks(books);
+                }).catch(() => this.clearBooks());
+        }else{
+            this.clearBooks();
+        }
+    };
+
+    static headerBar(handleQuery) {
+        return(
+            <div className="search-books-bar">
+                <Link className="close-search" to="/" />
+                <div className="search-books-input-wrapper">
+                    <input
+                        type="text"
+                        placeholder="Search by title or author"
+                        onChange={(e) => handleQuery(e.target.value)}
+                    />
+                </div>
+            </div>
+        );
+    };
+
     render(){
 
         return(
             <div className="search-books">
-                <div className="search-books-bar">
-                    <Link className="close-search" to="/" />
-                    <div className="search-books-input-wrapper">
-                        <input
-                            type="text"
-                            placeholder="Search by title or author"
-                        />
-                    </div>
-                </div>
+                {Search.headerBar(this.updateQuery)}
                 <div className="search-books-results">
                     <ol className="books-grid">
                     </ol>
