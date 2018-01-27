@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import { search } from './BooksAPI';
+import Books from './Books';
 
 class Search extends Component {
 
