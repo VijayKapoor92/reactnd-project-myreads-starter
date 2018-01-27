@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom'
 import Books from './Books'
+import Search from "./Search";
 import { getAll, get, update } from "./BooksAPI";
 import './App.css'
 
@@ -22,7 +23,7 @@ class BooksApp extends React.Component {
     };
 
     updateBooks = (book) => {
-        BooksAPI.update(book, book.shelf).then((res) => {
+        update(book, book.shelf).then((res) => {
             this.setBooks();
         });
     };
@@ -67,16 +68,7 @@ class BooksApp extends React.Component {
       return (
           <div className="app">
               <Route exact path='/search' render={() => (
-                  <div className="search-books">
-                      <div className="search-books-bar">
-                          <Link className="close-search" to="/" />
-                          <div className="search-books-input-wrapper">
-                              <input type="text" placeholder="Search by title or author"/>
-                          </div>
-                      </div>
-                      <div className="search-books-results">
-                          <ol className="books-grid"></ol></div>
-                  </div>
+                  <Search />
               )}/>
               <Route exact path='/' render={() => (
                   <div className="list-books">
