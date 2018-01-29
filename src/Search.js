@@ -32,7 +32,7 @@ class Search extends Component {
 
     updateQuery = (query) => {
         query = query.trim();
-        if(query.length >= 5){
+        if(query.length > 0){
             this.startLoader();
             search(query, 10)
                 .then(books => {
@@ -45,6 +45,7 @@ class Search extends Component {
                 }).catch(() => this.clearBooks());
         }else{
             this.clearBooks();
+            this.stopLoader();
         }
     };
 
