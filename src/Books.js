@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 
+const validate_img = (image) => {
+    const no_image_path = "";
+    return image !== "" ? image : no_image_path;
+};
+
 const BooksChanger = ({shelf, onChange}) =>
     <div className="book-shelf-changer">
         <select value={shelf} onChange={(event) => onChange(event.target.value)}>
@@ -16,7 +21,7 @@ const Books = ({id, cover={}, shelf, title, authors=[], onChangeShelf}) => {
     return (
         <div className="book">
             <div className="book-top">
-                <div className="book-cover" style={{width: 128, height: 192, backgroundImage: `url(${cover.thumbnail})`}}/>;
+                <div className="book-cover" style={{width: 128, height: 192, backgroundImage: `url(${validate_img(cover.thumbnail)})`}}/>;
                 <BooksChanger shelf={shelf} onChange={(shelf) => onChangeShelf(id, shelf)} />
             </div>
             <div className="book-title">{title}</div>
