@@ -31,10 +31,10 @@ class Search extends Component {
     };
 
     updateQuery = (query) => {
-        this.startLoader();
         query = query.trim();
-        if(query.length > 0){
-            search(query)
+        if(query.length >= 5){
+            this.startLoader();
+            search(query, 10)
                 .then(books => {
                     if(!books || books.error){
                         this.clearBooks();
@@ -89,7 +89,7 @@ class Search extends Component {
                             <Books
                                 id={book.id}
                                 cover={book.imageLinks}
-                                shelf={book.shelf}
+                                shelf={getShelf(book.id)}
                                 title={book.title}
                                 authors={book.authors}
                                 onChangeShelf={onChangeShelf}
@@ -103,13 +103,18 @@ class Search extends Component {
 
     render(){
 
-        const { books } = this.state;
+        const { books, isLoading } = this.state;
         const { getShelf, onChangeShelf } = this.props;
 
         return(
-            <div className="search-books">
-                {Search.headerBar(this.updateQuery)}
-                {Search.searchBooks(books, getShelf, onChangeShelf)}
+            <div>
+                {isLoading && (
+                    Search.loader()
+                )}
+                <div className="search-books">
+                    {Search.headerBar(this.updateQuery)}
+                    {Search.searchBooks(books, getShelf, onChangeShelf)}
+                </div>
             </div>
         )
     }
