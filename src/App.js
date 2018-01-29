@@ -14,18 +14,16 @@ class BooksApp extends React.Component {
         }
     }
 
-    componentDidMount(){
-        this.setBooks();
-    }
-
-    setBooks = () => {
-        getAll().then((books) => this.setState({ books }));
+    updateBooks = (book, books) => {
+        update(book, book.shelf).then(() => {
+            this.setState({ books });
+        });
     };
 
-    updateBooks = (book) => {
-        update(book, book.shelf).then((res) => {
-            this.setBooks();
-        });
+    componentDidMount(){
+        getAll().then((books) => (
+            this.setState({ books }))
+        );
     };
 
     getShelf = (id) => {
