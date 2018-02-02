@@ -18,10 +18,9 @@ class Search extends Component {
             books: [],
             isLoading: false
         };
-        this.setBooks = this.setBooks.bind(this);
     }
 
-    setBooks(books){
+    setBooks = (books) => {
         this.setState({ books });
     };
 
