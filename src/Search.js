@@ -92,7 +92,7 @@ class Search extends Component {
                             <Books
                                 id={book.id}
                                 cover={book.imageLinks}
-                                shelf={getShelf(book.id)}
+                                shelf={book.id}
                                 title={book.title}
                                 authors={book.authors}
                                 onChangeShelf={onChangeShelf}
