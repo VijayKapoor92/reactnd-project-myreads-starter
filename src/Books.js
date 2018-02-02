@@ -25,7 +25,13 @@ const Books = ({id, cover={}, shelf, title, authors=[], onChangeShelf}) => {
                 <BooksChanger shelf={shelf} onChange={(shelf) => onChangeShelf(id, shelf)} />
             </div>
             <div className="book-title">{title}</div>
-            <div className="book-authors">{authors.length > 1 ? `${authors[0]}, ${authors[1]}` : authors}</div>
+            <div className="book-authors">
+                <ol className="authors-list">
+                    {authors.map((author, index) => (
+                        <li key={index}>{author}</li>
+                    ))}
+                </ol>
+            </div>
         </div>
     )
 };
